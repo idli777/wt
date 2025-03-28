@@ -1,0 +1,67 @@
+//Add a JavaScript File in Codeigniter. The Javascript code should check whether a number is positive or negative. 
+
+welcome_message.php/
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+$this->load->helper('url');
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Q1</title>
+</head>
+<body>
+	<input type="text" id="input" />
+	<p id="output"></p>
+	<button id="btn">check</button>
+<script src="<?php echo base_url('public/js/new.js'); ?>">
+</script>
+</body>
+</html>
+
+public/
+....js/
+........new.js/
+let button = document.getElementById("btn");
+let input = document.getElementById("input");
+let output = document.getElementById("output");
+button.addEventListener("click", function () {
+	let current = +input.value;
+	if (current < 0) {
+		output.innerText = "Negative";
+	} else if (current > 0) {
+		output.innerText = "Positive";
+	} else {
+		output.innerText = "Zero";
+	}
+});
+
+
+//Build a simple linear regression model for User Data.
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('./csv/User_Data.csv')
+df = pd.get_dummies(df, columns=['Gender'], drop_first=True)
+
+X = df[['EstimatedSalary']]
+y = df['Purchased']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=15)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+plt.scatter(X_test, y_test, color = 'green')
+plt.plot(X_train, model.predict(X_train), color='red',linewidth=3)
+plt.title('Linear Regression')
+plt.xlabel('Salary')
+plt.ylabel('Purchases')
+plt.show()
+
